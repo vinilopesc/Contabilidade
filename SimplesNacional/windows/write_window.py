@@ -1,10 +1,10 @@
 import tkinter as tk
-from ContabilidadePYVL.SimplesNacional.windows.select_window import WindowSelect
+from SimplesNacional.windows.select_window import WindowSelect
 from tkinter import ttk
-from ContabilidadePYVL.SimplesNacional.codes.SimplesNacional import SimplesNacional
+from SimplesNacional.codes.SimplesNacional import SimplesNacional
 from tkinter import messagebox
 from tkinter import filedialog
-
+import Constantes
 
 class Window_write:
     def __init__(self):
@@ -13,8 +13,12 @@ class Window_write:
         self.butons()
         self.messages()
         self.combo_box()
+        self.style()
         self.simples_nacional = SimplesNacional()
         self.window_write.mainloop()
+
+    def style(self):
+        self.window_write.configure(bg=Constantes.bck_color)
 
     def back_select_window(self):
         self.window_write.destroy()
@@ -72,25 +76,23 @@ class Window_write:
             messagebox.showerror("ERRO!", "Digite os faturamentos na caixa de texto")
 
     def butons(self):
-        bnt_calcular = tk.Button(self.window_write,text="Calcular", command=self.mix_rb)
+        bnt_calcular = tk.Button(self.window_write,text="Calcular", command=self.mix_rb,background=Constantes.btn_color,foreground=Constantes.btn_txt_color,font=Constantes.btn_font)
         bnt_calcular.grid(row=2,column=1)
 
-        btn_back = tk.Button(self.window_write, text="<-", command=self.back_select_window)
+        btn_back = tk.Button(self.window_write, text="<-", command=self.back_select_window,background=Constantes.btn_color,foreground=Constantes.btn_txt_color,font=Constantes.btn_font)
         btn_back.grid(row=0, column=0, sticky="NW")
 
-        btn_exportar = tk.Button(self.window_write, text="Exportar arquivo", command=self._exportar_arquivo)
+        btn_exportar = tk.Button(self.window_write, text="Exportar arquivo", command=self._exportar_arquivo,background=Constantes.btn_color,foreground=Constantes.btn_txt_color,font=Constantes.btn_font)
         btn_exportar.grid(row=3, column=1, sticky="s")
 
     def messages(self):
         mensagem = tk.Label(self.window_write,
-                            text="Digite no espaço abaixo os faturamentos mensais\ndigite um faturamento por linha")
+                            text="Digite no espaço abaixo os faturamentos mensais\ndigite um faturamento por linha",font=Constantes.txt_font, bg=Constantes.bck_color, fg=Constantes.fr_color)
         mensagem.grid(row=1, column=0)
 
-        self.texto_faturamento = tk.Text(self.window_write, height=10, width=30)
+        self.texto_faturamento = tk.Text(self.window_write, height=10, width=30,font=Constantes.btn_font, bg=Constantes.btn_color, fg=Constantes.btn_txt_color)
         self.texto_faturamento.grid(row=2, column=0, padx=10, pady=5)
 
-        mensagem_importar_label = tk.Label(self.window_write, text="", fg="red")
-        mensagem_importar_label.grid(row=2, column=0, padx=10, pady=5)
 
     def combo_box(self):
         self.escolha_anexo = ttk.Combobox(self.window_write,values=["Anexo I", "Anexo II", "Anexo III", "Anexo IV", "Anexo V"])
