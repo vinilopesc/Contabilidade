@@ -1,11 +1,12 @@
 import tkinter as tk
-from ContabilidadePYVL.SimplesNacional.windows.select_window import WindowSelect
+from SimplesNacional.windows.select_window import WindowSelect
 from tkinter import ttk
-from ContabilidadePYVL.SimplesNacional.codes.SimplesNacional import SimplesNacional
+from SimplesNacional.codes.SimplesNacional import SimplesNacional
 from tkinter import filedialog
 from tkinter import messagebox
 import os
 import pandas as pd
+import Constantes
 
 
 class Window_import:
@@ -15,37 +16,41 @@ class Window_import:
         self.butons()
         self.messages()
         self.image_combo_box()
+        self.style()
         self.simples_nacional = SimplesNacional()
         self.window_import.mainloop()
+
+
+    def style(self):
+        self.window_import.configure(bg=Constantes.bck_color)
 
     def back_select_window(self):
         self.window_import.destroy()
         self.window_select = WindowSelect()
     def butons(self):
-        btn_back = tk.Button(self.window_import, text="<-", command=self.back_select_window)
+        btn_back = tk.Button(self.window_import, text="<-", command=self.back_select_window,background=Constantes.btn_color,foreground=Constantes.btn_txt_color,font=Constantes.btn_font)
         btn_back.grid(row=0, column=0, sticky="NW")
 
-        botao_importar = tk.Button(self.window_import, text="Importar arquivo", command=self._mix_math)
+        botao_importar = tk.Button(self.window_import, text="Importar arquivo", command=self._mix_math,background=Constantes.btn_color,foreground=Constantes.btn_txt_color,font=Constantes.btn_font)
         botao_importar.grid(row=1, column=1)
 
-        btn_selecionar_anexo = tk.Button(self.window_import, text="Selecionar Anexo", command=self._selecionar_anexo)
-        btn_selecionar_anexo.grid(row=2, column=2, sticky="N")
+        btn_selecionar_anexo = tk.Button(self.window_import, text="Selecionar Anexo", command=self._selecionar_anexo,background=Constantes.btn_color,foreground=Constantes.btn_txt_color,font=Constantes.btn_font)
+        btn_selecionar_anexo.grid(row=2, column=2)
 
-        btn_exportar = tk.Button(self.window_import, text="Exportar resultado", command=self._exportar_arquivo)
+        btn_exportar = tk.Button(self.window_import, text="Exportar resultado", command=self._exportar_arquivo,background=Constantes.btn_color,foreground=Constantes.btn_txt_color,font=Constantes.btn_font)
         btn_exportar.grid(row=3, column=1, sticky="N")
 
     def messages(self):
-        mensagem_imposto = tk.Label(self.window_import, text="Selecione o arquivo => ", font=("arial", 12))
+        mensagem_imposto = tk.Label(self.window_import, text="Selecione o arquivo => ",font=Constantes.txt_font, bg=Constantes.bck_color, fg=Constantes.fr_color)
         mensagem_imposto.grid(row=1, column=0, sticky='w')
 
         mensagem_imagem = tk.Label(self.window_import,
-                                   text="A planilha deve ter uma coluna\n com o nome 'Faturamento'\nComo na imagem abaixo:",
-                                   font=("arial", 12))
+                                   text="A planilha deve ter uma coluna\n com o nome 'Faturamento'\nComo na imagem abaixo:",font=Constantes.txt_font, bg=Constantes.bck_color, fg=Constantes.fr_color)
         mensagem_imagem.grid(row=2, column=0, sticky='w')
 
     def image_combo_box(self):
         self.imagem = tk.PhotoImage(file="Image_xlsx.PNG")
-        label_imagem = tk.Label(self.window_import, image=self.imagem)
+        label_imagem = tk.Label(self.window_import, image=self.imagem,background=Constantes.btn_color,foreground=Constantes.btn_txt_color,font=Constantes.btn_font)
         label_imagem.grid(row=3, column=0, sticky='w')
 
         self.escolha_anexo = ttk.Combobox(self.window_import, values=["Anexo I", "Anexo II", "Anexo III", "Anexo IV", "Anexo V"])
